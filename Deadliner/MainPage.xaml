@@ -1,0 +1,42 @@
+﻿<Page
+    x:Class="Deadliner.MainPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:Deadliner"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <VisualStateManager.VisualStateGroups>
+            <VisualStateGroup x:Name="VisualStateGroup">
+                <VisualState x:Name="VisualState320">
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="320"/>
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter Target="ButtonSave.(RelativePanel.RightOf)" Value="ButtonOpen"/>
+                        <Setter Target="ButtonNew.(RelativePanel.RightOf)" Value="ButtonSave"/>
+                        <Setter Target="TempButNew.(RelativePanel.RightOf)" Value="ButtonNew"/>
+                    </VisualState.Setters>
+                </VisualState>
+            </VisualStateGroup>
+        </VisualStateManager.VisualStateGroups>
+        
+        <Grid.RowDefinitions>
+            <RowDefinition Height="40"/>
+            <RowDefinition />
+        </Grid.RowDefinitions>
+        <RelativePanel Grid.Row="0" Background="LightGreen">
+            <Button x:Name="ButtonOpen" Click="ChangeTime" Margin="4,4,0,4" VerticalAlignment="Top">Open or ChangeTime</Button>
+            <Button x:Name="ButtonSave" Click="SaveEvents" Margin="4,4,0,4" VerticalAlignment="Top">Do not push!!!(Save)</Button>
+            <Button x:Name="ButtonNew" Click="NewEvent" Margin="4,4,0,4" VerticalAlignment="Top">New</Button>
+            <Button x:Name="TempButNew" Click="ChangeEvent"  Margin="4,4,0,4" VerticalAlignment="Top">NewLine</Button>
+            
+        </RelativePanel>
+        <ListView x:Name="dataTable"  Grid.Row="1" Background="DarkSalmon">
+            
+        </ListView>
+    </Grid>
+
+
+</Page>
