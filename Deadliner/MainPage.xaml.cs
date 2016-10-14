@@ -70,7 +70,7 @@ namespace Deadliner
             TileService.SetBadgeCountOnTile(_count++);
         }
 
-       
+
         string GetMonth
         {
             get
@@ -93,7 +93,7 @@ namespace Deadliner
             DeadList.Add(new TodoItem());
             dataTable.Items.Add(temp);
             _count++;
-            PrimaryTile.IdealMessage = (Enum.GetName(typeof(Second), ((int)(DateTime.Now.Second)) % 2).ToString());
+            PrimaryTile.message = (Enum.GetName(typeof(Second), ((int)(DateTime.Now.Second)) % 2).ToString());
             TileService.UpdatePrimaryTile(this, null);
         }*/
         enum Second
