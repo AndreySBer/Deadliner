@@ -14,7 +14,7 @@
                         <AdaptiveTrigger MinWindowWidth="320"/>
                     </VisualState.StateTriggers>
                     <VisualState.Setters>
-                        <Setter Target="ButtonSave.(RelativePanel.RightOf)" Value="ButtonOpen"/>
+                        
                        
                         <Setter Target="TempButNew.(RelativePanel.RightOf)" Value="ButtonSave"/>
                         <Setter Target="AzureButNew.(RelativePanel.RightOf)" Value="TempButNew"/>
@@ -28,10 +28,10 @@
             <RowDefinition />
         </Grid.RowDefinitions>
         <RelativePanel Grid.Row="0" Background="LightGreen">
-            <Button x:Name="ButtonOpen" Click="ChangeTime" Margin="4,4,0,4" VerticalAlignment="Top">Open or ChangeTime</Button>
-            <Button x:Name="ButtonSave" Click="SaveEvents" Margin="4,4,0,4" VerticalAlignment="Top">Do not push!!!(Save)</Button>
             
-            <Button x:Name="TempButNew" Click="ChangeEvent"  Margin="4,4,0,4" VerticalAlignment="Top">NewLine</Button>
+            <Button x:Name="ButtonSave" Click="SaveEvents" Margin="4,4,0,4" VerticalAlignment="Top">Save Tasks To File</Button>
+
+            <Button x:Name="TempButNew" Click="NewEvent"  Margin="4,4,0,4" VerticalAlignment="Top">New Task</Button>
             <Button x:Name="AzureButNew" Click="AzureEvent"  Margin="4,4,0,4" VerticalAlignment="Top">Azure</Button>
         </RelativePanel>
         <ListView x:Name="dataTable"  Grid.Row="1" Background="DarkSalmon">

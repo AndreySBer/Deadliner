@@ -17,9 +17,11 @@
                     </VisualState.StateTriggers>
                     <VisualState.Setters>
                         <Setter Target="TitleTextBox.(RelativePanel.Below)" Value="HeaderTextBlock"/>
-                        <Setter Target="DateTimePicker.(RelativePanel.Below)" Value="TitleTextBox"/>
-                        <Setter Target="TimePicker.(RelativePanel.RightOf)" Value="DatePicker"/>
+                        <Setter Target="TextTextBox.(RelativePanel.Below)" Value="TitleTextBox"/>
+                        <Setter Target="DateTimePicker.(RelativePanel.Below)" Value="TextTextBox"/>
 
+                        <Setter Target="TimePicker.(RelativePanel.RightOf)" Value="DatePicker"/>
+                        <Setter Target="NewTaskButton.(RelativePanel.Below)" Value="DateTimePicker"/>
                     </VisualState.Setters>
                 </VisualState>
             </VisualStateGroup>
@@ -27,12 +29,12 @@
         <RelativePanel>
             <TextBlock x:Name="HeaderTextBlock" Margin="4,0,4,4">New Deadline</TextBlock>
             <TextBox x:Name="TitleTextBox" Header="Title" Margin="4,0,4,4"/>
+            <TextBox x:Name="TextTextBox" Header="Description" Margin="4,0,4,4"/>
             <StackPanel x:Name="DateTimePicker">
-                <CalendarDatePicker x:Name="DatePicker" Header="Made before" Margin="4,0,4,4"/>
+                <CalendarDatePicker x:Name="DatePicker" Header="Do before" Margin="4,0,4,4"/>
                 <TimePicker x:Name="TimePicker" Margin="4,0,4,4"/>
-                
-
             </StackPanel>
+            <Button x:Name="NewTaskButton" Click="SaveNew" Margin="4,0,4,4">Добавить</Button>
         </RelativePanel>
     </Grid>
 </Page>

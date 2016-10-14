@@ -6,6 +6,8 @@ using Deadliner.Services;
 using Deadliner.Models;
 using System.Globalization;
 using System.Collections.ObjectModel;
+using Windows.UI.Xaml.Navigation;
+using Windows.UI.Xaml.Controls.Primitives;
 // The Blank Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x409
 
 namespace Deadliner
@@ -16,12 +18,41 @@ namespace Deadliner
     public sealed partial class MainPage : Page
     {
         ObservableCollection<TodoItem> DeadList = new ObservableCollection<TodoItem>();
+        TodoItem NewDead;
         public MainPage()
         {
             this.InitializeComponent();
             ShowData();
             TileService.UpdatePrimaryTile(this, null);
             UpdateBadge();
+        }
+        
+        protected async override void OnNavigatedTo(NavigationEventArgs e)
+        {
+            try
+            {
+                TodoItem item = (TodoItem)e.Parameter;
+                await App.MobileService.GetTable<TodoItem>().InsertAsync(item);
+                ReLoadItems();
+            }
+            catch { }
+                base.OnNavigatedTo(e);
+            
+        }
+
+        private async void Log(string v)
+        {
+            try
+            {
+                Windows.Storage.StorageFolder storageFolder = Windows.Storage.ApplicationData.Current.LocalFolder;
+                Windows.Storage.StorageFile sampleFile = await storageFolder.CreateFileAsync("Log.csv",
+                        Windows.Storage.CreationCollisionOption.OpenIfExists);
+
+                await Windows.Storage.FileIO.WriteTextAsync(sampleFile, v);
+
+            }
+            catch (Exception)
+            { }
         }
 
         private void ShowData()
@@ -39,11 +70,7 @@ namespace Deadliner
             TileService.SetBadgeCountOnTile(_count++);
         }
 
-        private void ChangeTime(object sender, RoutedEventArgs e)
-        {
-            PrimaryTile.IdealTime = String.Format("{0} {1} {2}", DateTime.Now.Day, GetMonth, GetYear);
-            TileService.UpdatePrimaryTile(this, null);
-        }
+       
         string GetMonth
         {
             get
@@ -59,7 +86,7 @@ namespace Deadliner
             }
         }
 
-        private void ChangeEvent(object sender, RoutedEventArgs e)
+        /*private void ChangeEvent(object sender, RoutedEventArgs e)
         {
             
             string temp = DateTime.Now.ToString();
@@ -68,17 +95,17 @@ namespace Deadliner
             _count++;
             PrimaryTile.IdealMessage = (Enum.GetName(typeof(Second), ((int)(DateTime.Now.Second)) % 2).ToString());
             TileService.UpdatePrimaryTile(this, null);
-        }
+        }*/
         enum Second
         {
             Odd, Even
         }
-
-        /*private void NewEvent(object sender, RoutedEventArgs e)
+        
+        private void NewEvent(object sender, RoutedEventArgs e)
         {
-            Deadline NewDead = new Deadline();
+            NewDead = new TodoItem();
             Frame.Navigate(typeof(NewTaskPage),NewDead);
-        }*/
+        }
 
         private async void SaveEvents(object sender, RoutedEventArgs e)
         {
@@ -108,16 +135,9 @@ namespace Deadliner
             ReLoadItems();
         }
 
-        private async void AzureEvent(object sender, RoutedEventArgs e)
+        private void AzureEvent(object sender, RoutedEventArgs e)
         {
-            /*TodoItem item = new TodoItem
-            {
-                Text = "Leningrad",
-                Complete = false,
-                Title = "В Питере - пить",
-                DueTo = DateTime.Now
-            };
-            await App.MobileService.GetTable<TodoItem>().InsertAsync(item);*/
+            
             
             ReLoadItems();
         }

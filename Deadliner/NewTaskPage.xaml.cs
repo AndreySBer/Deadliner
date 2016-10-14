@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Deadliner.Models;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -22,9 +23,28 @@ namespace Deadliner
     /// </summary>
     public sealed partial class NewTaskPage : Page
     {
+        TodoItem item;
         public NewTaskPage()
         {
             this.InitializeComponent();
+        }
+
+        protected override void OnNavigatedTo(NavigationEventArgs e)
+        {
+            item = (TodoItem)e.Parameter;
+            base.OnNavigatedTo(e);
+        }
+
+        private void SaveNew(object sender, RoutedEventArgs e)
+        {
+            //TodoItem item = new TodoItem
+            
+                item.Title = TitleTextBox.Text;
+                item.Complete = false;
+                item.Text = TextTextBox.Text;
+                item.DueTo = ((DateTimeOffset)DatePicker.Date).Date.Add(TimePicker.Time);
+            Frame.Navigate(typeof(MainPage), item);
+            
         }
     }
 }
