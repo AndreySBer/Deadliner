@@ -21,7 +21,7 @@
                 </VisualState>
             </VisualStateGroup>
         </VisualStateManager.VisualStateGroups>
-        
+
         <Grid.RowDefinitions>
             <RowDefinition Height="40"/>
             <RowDefinition />
@@ -31,10 +31,20 @@
             <Button x:Name="ButtonSave" Click="SaveEvents" Margin="4,4,0,4" VerticalAlignment="Top">Do not push!!!(Save)</Button>
             <Button x:Name="ButtonNew" Click="NewEvent" Margin="4,4,0,4" VerticalAlignment="Top">New</Button>
             <Button x:Name="TempButNew" Click="ChangeEvent"  Margin="4,4,0,4" VerticalAlignment="Top">NewLine</Button>
-            
+
         </RelativePanel>
         <ListView x:Name="dataTable"  Grid.Row="1" Background="DarkSalmon">
-            
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    
+                    <StackPanel>
+                        <TextBlock Text="{Binding Title}"></TextBlock>
+                        <TextBlock Text="{Binding Description}"></TextBlock>
+                        <TextBlock Text="{Binding DueTo}"></TextBlock>
+                    </StackPanel>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+
         </ListView>
     </Grid>
 

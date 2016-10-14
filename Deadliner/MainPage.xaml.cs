@@ -15,6 +15,7 @@ using Windows.UI.Xaml.Navigation;
 using Deadliner.Services;
 using Deadliner.Models;
 using System.Globalization;
+using System.Collections.ObjectModel;
 // The Blank Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x409
 
 namespace Deadliner
@@ -24,16 +25,25 @@ namespace Deadliner
     /// </summary>
     public sealed partial class MainPage : Page
     {
+        ObservableCollection<Deadline> DeadList = new ObservableCollection<Deadline>();
         public MainPage()
         {
             this.InitializeComponent();
-
-
+            ShowData();
             TileService.UpdatePrimaryTile(this, null);
             UpdateBadge();
         }
+
+        private void ShowData()
+        {
+            //DeadList.Add(new Deadline("В Питере - пить") { Name = "В Питере - пить" });
+            //DeadList.Add(new Deadline("ЗОЖ") { Name = "ЗОЖ" });
+            LoadDeads();
+            dataTable.ItemsSource = DeadList;
+        }
+
         int _count = 1;
-        List<Deadline> DeadList = new List<Deadline>();
+        
         private void UpdateBadge()
         {
             TileService.SetBadgeCountOnTile(_count++);
@@ -95,6 +105,16 @@ namespace Deadliner
             }
             catch (Exception)
             { }
+        }
+        private async void LoadDeads()
+        {
+            Windows.Storage.StorageFolder storageFolder = Windows.Storage.ApplicationData.Current.LocalFolder;
+            Windows.Storage.StorageFile sampleFile = await storageFolder.GetFileAsync("DataFile.csv");
+            var lines = await Windows.Storage.FileIO.ReadLinesAsync(sampleFile);
+            foreach (String s in lines)
+            {
+                DeadList.Add(new Deadline() { Title = s, Description="Шнур",DueTo=new DateTime() });
+            }
         }
     }
 }

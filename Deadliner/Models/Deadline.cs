@@ -8,10 +8,10 @@ namespace Deadliner.Models
 {
     public class Deadline
     {
-        string name;
+        //string name;
         public Deadline(string description)
         {
-            name = description;
+            Title = description;
         }
 
         public Deadline()
@@ -20,12 +20,16 @@ namespace Deadliner.Models
 
         public override string ToString()
         {
-            return name;
+            return Title;
         }
 
         public string ToFile()
         {
-            return name;
+            return Title;
         }
+        public string Title { get; set; }
+        public string Description { get; set; }
+        public DateTime DueTo { get; set; }
+
     }
 }
