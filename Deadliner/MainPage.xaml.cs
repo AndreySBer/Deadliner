@@ -1,17 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Controls.Primitives;
-using Windows.UI.Xaml.Data;
-using Windows.UI.Xaml.Input;
-using Windows.UI.Xaml.Media;
-using Windows.UI.Xaml.Navigation;
 using Deadliner.Services;
 using Deadliner.Models;
 using System.Globalization;
@@ -120,14 +110,14 @@ namespace Deadliner
 
         private async void AzureEvent(object sender, RoutedEventArgs e)
         {
-            TodoItem item = new TodoItem
+            /*TodoItem item = new TodoItem
             {
                 Text = "Leningrad",
                 Complete = false,
                 Title = "В Питере - пить",
                 DueTo = DateTime.Now
             };
-            await App.MobileService.GetTable<TodoItem>().InsertAsync(item);
+            await App.MobileService.GetTable<TodoItem>().InsertAsync(item);*/
             
             ReLoadItems();
         }
@@ -144,7 +134,18 @@ namespace Deadliner
             {
                 DeadList.Add(v/*new TodoItem() {Title=v.Title, Text=v.Text, DueTo=v.DueTo}*/ );
             }
-            
+            if (DeadList.Count > 0)
+            {
+                PrimaryTile.IdealTime = DeadList[0].Title;
+                PrimaryTile.IdealMessage = DeadList[0].Text;
+            }
+            else
+            {
+                PrimaryTile.IdealTime = "You have no current tasks";
+                PrimaryTile.IdealMessage = "Why don\'t you run city quests from Quest-City.ru";
+            }
+            TileService.UpdatePrimaryTile(this, null);
+            TileService.SetBadgeCountOnTile(DeadList.Count);
         }
     }
 }
