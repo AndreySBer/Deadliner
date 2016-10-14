@@ -99,7 +99,6 @@
     <Compile Include="MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Models\Deadline.cs" />
     <Compile Include="Models\PrimaryTile.cs" />
     <Compile Include="Models\TodoItem.cs" />
     <Compile Include="NewTaskPage.xaml.cs">

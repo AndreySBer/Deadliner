@@ -15,8 +15,8 @@
                     </VisualState.StateTriggers>
                     <VisualState.Setters>
                         <Setter Target="ButtonSave.(RelativePanel.RightOf)" Value="ButtonOpen"/>
-                        <Setter Target="ButtonNew.(RelativePanel.RightOf)" Value="ButtonSave"/>
-                        <Setter Target="TempButNew.(RelativePanel.RightOf)" Value="ButtonNew"/>
+                       
+                        <Setter Target="TempButNew.(RelativePanel.RightOf)" Value="ButtonSave"/>
                         <Setter Target="AzureButNew.(RelativePanel.RightOf)" Value="TempButNew"/>
                     </VisualState.Setters>
                 </VisualState>
@@ -30,7 +30,7 @@
         <RelativePanel Grid.Row="0" Background="LightGreen">
             <Button x:Name="ButtonOpen" Click="ChangeTime" Margin="4,4,0,4" VerticalAlignment="Top">Open or ChangeTime</Button>
             <Button x:Name="ButtonSave" Click="SaveEvents" Margin="4,4,0,4" VerticalAlignment="Top">Do not push!!!(Save)</Button>
-            <Button x:Name="ButtonNew" Click="NewEvent" Margin="4,4,0,4" VerticalAlignment="Top">New</Button>
+            
             <Button x:Name="TempButNew" Click="ChangeEvent"  Margin="4,4,0,4" VerticalAlignment="Top">NewLine</Button>
             <Button x:Name="AzureButNew" Click="AzureEvent"  Margin="4,4,0,4" VerticalAlignment="Top">Azure</Button>
         </RelativePanel>
@@ -40,7 +40,7 @@
                     
                     <StackPanel>
                         <TextBlock Text="{Binding Title}"></TextBlock>
-                        <TextBlock Text="{Binding Description}"></TextBlock>
+                        <TextBlock Text="{Binding Text}"></TextBlock>
                         <TextBlock Text="{Binding DueTo}"></TextBlock>
                     </StackPanel>
                 </DataTemplate>

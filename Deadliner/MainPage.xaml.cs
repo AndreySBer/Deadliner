@@ -25,7 +25,7 @@ namespace Deadliner
     /// </summary>
     public sealed partial class MainPage : Page
     {
-        ObservableCollection<Deadline> DeadList = new ObservableCollection<Deadline>();
+        ObservableCollection<TodoItem> DeadList = new ObservableCollection<TodoItem>();
         public MainPage()
         {
             this.InitializeComponent();
@@ -73,7 +73,7 @@ namespace Deadliner
         {
             
             string temp = DateTime.Now.ToString();
-            DeadList.Add(new Deadline(temp));
+            DeadList.Add(new TodoItem());
             dataTable.Items.Add(temp);
             _count++;
             PrimaryTile.IdealMessage = (Enum.GetName(typeof(Second), ((int)(DateTime.Now.Second)) % 2).ToString());
@@ -84,11 +84,11 @@ namespace Deadliner
             Odd, Even
         }
 
-        private void NewEvent(object sender, RoutedEventArgs e)
+        /*private void NewEvent(object sender, RoutedEventArgs e)
         {
             Deadline NewDead = new Deadline();
             Frame.Navigate(typeof(NewTaskPage),NewDead);
-        }
+        }*/
 
         private async void SaveEvents(object sender, RoutedEventArgs e)
         {
@@ -98,7 +98,7 @@ namespace Deadliner
                 Windows.Storage.StorageFile sampleFile = await storageFolder.CreateFileAsync("DataFile.csv",
                         Windows.Storage.CreationCollisionOption.OpenIfExists);
                 string strres = "";
-                foreach (Deadline d in DeadList)
+                foreach (TodoItem d in DeadList)
                     strres += d.ToString() + '\n';
                 await Windows.Storage.FileIO.WriteTextAsync(sampleFile, strres);
 
@@ -106,15 +106,16 @@ namespace Deadliner
             catch (Exception)
             { }
         }
-        private async void LoadDeads()
+        private void LoadDeads()
         {
-            Windows.Storage.StorageFolder storageFolder = Windows.Storage.ApplicationData.Current.LocalFolder;
+            /*Windows.Storage.StorageFolder storageFolder = Windows.Storage.ApplicationData.Current.LocalFolder;
             Windows.Storage.StorageFile sampleFile = await storageFolder.GetFileAsync("DataFile.csv");
             var lines = await Windows.Storage.FileIO.ReadLinesAsync(sampleFile);
             foreach (String s in lines)
             {
-                DeadList.Add(new Deadline() { Title = s, Description="Шнур",DueTo=new DateTime() });
-            }
+                DeadList.Add(new TodoItem() { Title = s, Text="Шнур",DueTo=new DateTime() });
+            }*/
+            ReLoadItems();
         }
 
         private async void AzureEvent(object sender, RoutedEventArgs e)
@@ -127,17 +128,23 @@ namespace Deadliner
                 DueTo = DateTime.Now
             };
             await App.MobileService.GetTable<TodoItem>().InsertAsync(item);
+            
+            ReLoadItems();
+        }
+
+        private async void ReLoadItems()
+        {
             var todoTable = App.MobileService.GetTable<TodoItem>();
             List<TodoItem> items = await todoTable
                 .Where(todoItem => todoItem.Complete == false)
                 .OrderBy(todoItem => todoItem.DueTo)
                 .ToListAsync();
+            DeadList.Clear();
             foreach (var v in items)
             {
-                DeadList.Add(new Deadline() {Title=v.Title, Description=v.Text, DueTo=v.DueTo });
+                DeadList.Add(v/*new TodoItem() {Title=v.Title, Text=v.Text, DueTo=v.DueTo}*/ );
             }
-        }
             
-        
+        }
     }
 }
