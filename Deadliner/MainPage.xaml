@@ -17,6 +17,7 @@
                         <Setter Target="ButtonSave.(RelativePanel.RightOf)" Value="ButtonOpen"/>
                         <Setter Target="ButtonNew.(RelativePanel.RightOf)" Value="ButtonSave"/>
                         <Setter Target="TempButNew.(RelativePanel.RightOf)" Value="ButtonNew"/>
+                        <Setter Target="AzureButNew.(RelativePanel.RightOf)" Value="TempButNew"/>
                     </VisualState.Setters>
                 </VisualState>
             </VisualStateGroup>
@@ -31,7 +32,7 @@
             <Button x:Name="ButtonSave" Click="SaveEvents" Margin="4,4,0,4" VerticalAlignment="Top">Do not push!!!(Save)</Button>
             <Button x:Name="ButtonNew" Click="NewEvent" Margin="4,4,0,4" VerticalAlignment="Top">New</Button>
             <Button x:Name="TempButNew" Click="ChangeEvent"  Margin="4,4,0,4" VerticalAlignment="Top">NewLine</Button>
-
+            <Button x:Name="AzureButNew" Click="AzureEvent"  Margin="4,4,0,4" VerticalAlignment="Top">Azure</Button>
         </RelativePanel>
         <ListView x:Name="dataTable"  Grid.Row="1" Background="DarkSalmon">
             <ListView.ItemTemplate>

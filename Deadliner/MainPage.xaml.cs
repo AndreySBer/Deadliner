@@ -116,5 +116,28 @@ namespace Deadliner
                 DeadList.Add(new Deadline() { Title = s, Description="Шнур",DueTo=new DateTime() });
             }
         }
+
+        private async void AzureEvent(object sender, RoutedEventArgs e)
+        {
+            TodoItem item = new TodoItem
+            {
+                Text = "Leningrad",
+                Complete = false,
+                Title = "В Питере - пить",
+                DueTo = DateTime.Now
+            };
+            await App.MobileService.GetTable<TodoItem>().InsertAsync(item);
+            var todoTable = App.MobileService.GetTable<TodoItem>();
+            List<TodoItem> items = await todoTable
+                .Where(todoItem => todoItem.Complete == false)
+                .OrderBy(todoItem => todoItem.DueTo)
+                .ToListAsync();
+            foreach (var v in items)
+            {
+                DeadList.Add(new Deadline() {Title=v.Title, Description=v.Text, DueTo=v.DueTo });
+            }
+        }
+            
+        
     }
 }
