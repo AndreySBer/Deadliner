@@ -41,7 +41,7 @@ namespace Deadliner
 
         private void ChangeTime(object sender, RoutedEventArgs e)
         {
-            PrimaryTile.IdealTime = String.Format("{0} {1} {2}", DateTime.Now.Day, GetMonth, GetYear);
+            PrimaryTile.time = String.Format("{0} {1} {2}", DateTime.Now.Day, GetMonth, GetYear);
             TileService.UpdatePrimaryTile(this, null);
         }
         string GetMonth
@@ -66,7 +66,7 @@ namespace Deadliner
             DeadList.Add(new TodoItem());
             dataTable.Items.Add(temp);
             _count++;
-            PrimaryTile.IdealMessage = (Enum.GetName(typeof(Second), ((int)(DateTime.Now.Second)) % 2).ToString());
+            PrimaryTile.message = (Enum.GetName(typeof(Second), ((int)(DateTime.Now.Second)) % 2).ToString());
             TileService.UpdatePrimaryTile(this, null);
         }
         enum Second
