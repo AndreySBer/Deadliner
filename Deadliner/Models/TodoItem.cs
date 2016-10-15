@@ -13,5 +13,6 @@ namespace Deadliner.Models
         public bool Complete { get; set; }
         public string Title { get; set; }
         public DateTime DueTo { get; set; }
+        public String UserName { get; set; }
     }
 }

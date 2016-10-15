@@ -10,6 +10,7 @@ using Windows.UI.Xaml.Navigation;
 using Windows.UI.Xaml.Controls.Primitives;
 using Windows.UI.Core;
 using Windows.UI.Xaml.Data;
+using Windows.UI.Popups;
 // The Blank Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x409
 
 namespace Deadliner
@@ -21,13 +22,19 @@ namespace Deadliner
     {
         ObservableCollection<TodoItem> DeadList = new ObservableCollection<TodoItem>();
         TodoItem NewDead;
+        static String UserLogin = null;
         public MainPage()
         {
             this.InitializeComponent();
             ShowData();
             TileService.UpdatePrimaryTile(this, null);
             UpdateBadge();
-
+            if (UserLogin != null) {
+                UserName.Visibility = Visibility.Collapsed;
+                Login.Visibility = Visibility.Collapsed;
+                UserText.Visibility = Visibility.Visible;
+                UserText.Text = UserLogin;
+            }
 
         }
         
@@ -36,6 +43,7 @@ namespace Deadliner
             try
             {
                 TodoItem item = (TodoItem)e.Parameter;
+                item.UserName = UserLogin;
                 await App.MobileService.GetTable<TodoItem>().InsertAsync(item);
                 ReLoadItems();
             }
@@ -61,7 +69,7 @@ namespace Deadliner
 
         private void ShowData()
         {
-            LoadDeads();
+            ReLoadItems();
             dataTable.ItemsSource = DeadList;
         }
 
@@ -93,11 +101,14 @@ namespace Deadliner
             Odd, Even
         }
         
-        private void NewEvent(object sender, RoutedEventArgs e)
+        private async void NewEvent(object sender, RoutedEventArgs e)
         {
-            
-            NewDead = new TodoItem();
-            Frame.Navigate(typeof(NewTaskPage),NewDead);
+            if (UserLogin == null) { await new MessageDialog("Введите имя пользователя").ShowAsync(); }
+            else
+            {
+                NewDead = new TodoItem();
+                Frame.Navigate(typeof(NewTaskPage), NewDead);
+            }
         }
 
         private async void SaveEvents(object sender, RoutedEventArgs e)
@@ -116,21 +127,22 @@ namespace Deadliner
             catch (Exception)
             { }
         }
-        private void LoadDeads()
-        {
-            ReLoadItems();
-        }
+        
 
-        private void AzureEvent(object sender, RoutedEventArgs e)
+        private async void AzureEvent(object sender, RoutedEventArgs e)
         {
-            ReLoadItems();
+            if (UserLogin == null) { await new MessageDialog("Введите имя пользователя").ShowAsync(); }
+            else
+            {
+                ReLoadItems();
+            }
         }
 
         private async void ReLoadItems()
         {
             var todoTable = App.MobileService.GetTable<TodoItem>();
             List<TodoItem> items = await todoTable
-                .Where(todoItem => todoItem.Complete == false)
+                .Where(todoItem=>todoItem.UserName==UserLogin && todoItem.Complete == false)
                 .OrderBy(todoItem => todoItem.DueTo)
                 .ToListAsync();
             DeadList.Clear();
@@ -177,6 +189,16 @@ namespace Deadliner
             }
 
 
+            ReLoadItems();
+        }
+
+        private void LogIn(object sender, RoutedEventArgs e)
+        {
+            UserName.Visibility = Visibility.Collapsed;
+            Login.Visibility = Visibility.Collapsed;
+            UserText.Visibility = Visibility.Visible;
+            UserLogin = UserName.Text;
+            UserText.Text = UserLogin;
             ReLoadItems();
         }
     }

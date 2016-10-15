@@ -16,6 +16,9 @@
                     <VisualState.Setters>
                         <Setter Target="ButtonSave.(RelativePanel.RightOf)" Value="AzureButNew"/>
                         <Setter Target="AzureButNew.(RelativePanel.RightOf)" Value="TempButNew"/>
+                        <Setter Target="UserName.(RelativePanel.RightOf)" Value="ButtonSave"/>
+                        <Setter Target="Login.(RelativePanel.RightOf)" Value="UserName"/>
+                        <Setter Target="UserText.(RelativePanel.RightOf)" Value="ButtonSave"/>
                     </VisualState.Setters>
                 </VisualState>
             </VisualStateGroup>
@@ -28,9 +31,11 @@
         <RelativePanel Grid.Row="0" Background="Orange">
 
             <Button x:Name="ButtonSave" Click="SaveEvents" Margin="4,4,0,4" VerticalAlignment="Top" Background="#f5770a" Width="Auto" >Сохранить задачи в файл</Button>
-
             <Button x:Name="TempButNew" Click="NewEvent"  Margin="4,4,0,4" VerticalAlignment="Top" Background="#f5770a" Width="Auto">Новая задача +</Button>
             <Button x:Name="AzureButNew" Click="AzureEvent"  Margin="4,4,0,4" VerticalAlignment="Top" Background="#f5770a" Width="Auto">Обновить</Button>
+            <TextBox x:Name="UserName" Margin="140,4,0,4" VerticalAlignment="Top" Width="150"/>
+            <Button x:Name="Login" Click="LogIn"  Margin="4,4,0,4" VerticalAlignment="Top" Background="#f5770a" Width="Auto">Войти</Button>
+            <TextBlock x:Name="UserText" Margin="140,4,0,4" VerticalAlignment="Top"  Width="Auto" Visibility="Collapsed"/>
         </RelativePanel>
         <ListView x:Name="dataTable"  Grid.Row="1" Background="#ffb300">
             <ListView.ItemTemplate>
