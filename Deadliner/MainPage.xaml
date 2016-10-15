@@ -14,10 +14,11 @@
                         <AdaptiveTrigger MinWindowWidth="320"/>
                     </VisualState.StateTriggers>
                     <VisualState.Setters>
-                        
-                       
+
+
                         <Setter Target="TempButNew.(RelativePanel.RightOf)" Value="ButtonSave"/>
                         <Setter Target="AzureButNew.(RelativePanel.RightOf)" Value="TempButNew"/>
+                        
                     </VisualState.Setters>
                 </VisualState>
             </VisualStateGroup>
@@ -27,21 +28,22 @@
             <RowDefinition Height="40"/>
             <RowDefinition />
         </Grid.RowDefinitions>
-        <RelativePanel Grid.Row="0" Background="LightGreen">
-            
-            <Button x:Name="ButtonSave" Click="SaveEvents" Margin="4,4,0,4" VerticalAlignment="Top">Save Tasks To File</Button>
+        <RelativePanel Grid.Row="0" Background="Orange">
 
-            <Button x:Name="TempButNew" Click="NewEvent"  Margin="4,4,0,4" VerticalAlignment="Top">New Task</Button>
-            <Button x:Name="AzureButNew" Click="AzureEvent"  Margin="4,4,0,4" VerticalAlignment="Top">Azure</Button>
+            <Button x:Name="ButtonSave" Click="SaveEvents" Margin="4,4,0,4" VerticalAlignment="Top" Background="#f5770a" Width="150" >Save Tasks To File</Button>
+
+            <Button x:Name="TempButNew" Click="NewEvent"  Margin="4,4,0,4" VerticalAlignment="Top" Background="#f5770a" Width="100">New Task</Button>
+            <Button x:Name="AzureButNew" Click="AzureEvent"  Margin="4,4,0,4" VerticalAlignment="Top" Background="#f5770a" Width="100">Azure</Button>
         </RelativePanel>
-        <ListView x:Name="dataTable"  Grid.Row="1" Background="DarkSalmon">
+        <ListView x:Name="dataTable"  Grid.Row="1" Background="#ffb300">
             <ListView.ItemTemplate>
                 <DataTemplate>
-                    
-                    <StackPanel>
-                        <TextBlock Text="{Binding Title}"></TextBlock>
-                        <TextBlock Text="{Binding Text}"></TextBlock>
-                        <TextBlock Text="{Binding DueTo}"></TextBlock>
+
+                    <StackPanel Margin="4,4,4,4">
+                        <TextBlock FontWeight="Bold" Foreground="Red" FontSize="18" Text="{Binding Title}"></TextBlock>
+                        <TextBlock FontSize="12" Text="{Binding Text}"></TextBlock>
+                        <TextBlock FontSize="12" Text="{Binding DueTo}"></TextBlock>
+                        <CheckBox IsChecked="{Binding Complete, Mode=TwoWay}" Click="clickCheckBox" HorizontalAlignment="Right"/>
                     </StackPanel>
                 </DataTemplate>
             </ListView.ItemTemplate>

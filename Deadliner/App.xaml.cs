@@ -15,6 +15,7 @@ using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 using Microsoft.WindowsAzure.MobileServices;
+using Windows.UI.Core;
 
 namespace Deadliner
 {
@@ -82,7 +83,34 @@ new MobileServiceClient(
             }
             // Ensure the current window is active
             Window.Current.Activate();
+
+
+            SystemNavigationManager.GetForCurrentView().BackRequested += App_BackRequested;
+
+            rootFrame.Navigated += RootFrame_Navigated;
         }
+
+        public void RootFrame_Navigated(object sender, NavigationEventArgs e)
+        {
+            Frame rootFrame = Window.Current.Content as Frame;
+            SystemNavigationManager.GetForCurrentView().AppViewBackButtonVisibility =
+                SystemNavigationManager.GetForCurrentView().AppViewBackButtonVisibility == AppViewBackButtonVisibility.Collapsed ? 
+                AppViewBackButtonVisibility.Visible : AppViewBackButtonVisibility.Collapsed;
+        }
+
+        private void App_BackRequested(object sender, BackRequestedEventArgs e)
+        {
+            if (!e.Handled)
+            {
+                Frame frame = Window.Current.Content as Frame;
+                if (frame.CanGoBack)
+                {
+                    frame.GoBack();
+                    e.Handled = true;
+                }
+            }
+        }
+
 
         /// <summary>
         /// Invoked when Navigation to a certain page fails

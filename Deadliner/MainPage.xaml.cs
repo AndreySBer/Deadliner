@@ -8,6 +8,8 @@ using System.Globalization;
 using System.Collections.ObjectModel;
 using Windows.UI.Xaml.Navigation;
 using Windows.UI.Xaml.Controls.Primitives;
+using Windows.UI.Core;
+using Windows.UI.Xaml.Data;
 // The Blank Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x409
 
 namespace Deadliner
@@ -25,6 +27,8 @@ namespace Deadliner
             ShowData();
             TileService.UpdatePrimaryTile(this, null);
             UpdateBadge();
+
+
         }
         
         protected async override void OnNavigatedTo(NavigationEventArgs e)
@@ -103,6 +107,7 @@ namespace Deadliner
         
         private void NewEvent(object sender, RoutedEventArgs e)
         {
+            
             NewDead = new TodoItem();
             Frame.Navigate(typeof(NewTaskPage),NewDead);
         }
@@ -125,20 +130,11 @@ namespace Deadliner
         }
         private void LoadDeads()
         {
-            /*Windows.Storage.StorageFolder storageFolder = Windows.Storage.ApplicationData.Current.LocalFolder;
-            Windows.Storage.StorageFile sampleFile = await storageFolder.GetFileAsync("DataFile.csv");
-            var lines = await Windows.Storage.FileIO.ReadLinesAsync(sampleFile);
-            foreach (String s in lines)
-            {
-                DeadList.Add(new TodoItem() { Title = s, Text="Шнур",DueTo=new DateTime() });
-            }*/
             ReLoadItems();
         }
 
         private void AzureEvent(object sender, RoutedEventArgs e)
         {
-            
-            
             ReLoadItems();
         }
 
@@ -164,8 +160,37 @@ namespace Deadliner
                 PrimaryTile.IdealTime = "You have no current tasks";
                 PrimaryTile.IdealMessage = "Why don\'t you run city quests from Quest-City.ru";
             }
+
             TileService.UpdatePrimaryTile(this, null);
             TileService.SetBadgeCountOnTile(DeadList.Count);
         }
+
+        private async void clickCheckBox(object sender, RoutedEventArgs e)
+        {
+            UIElementCollection arr = ((StackPanel)(((CheckBox)sender).Parent)).Children;
+
+            if (arr != null)
+            {
+                TodoItem edited = null;
+                foreach (var item in DeadList)
+                {
+                    if (item.Title == ((TextBlock)arr[0]).Text)
+                    {
+                        edited = item;
+                        break;
+                    }
+                }
+
+                if (edited != null)
+                {
+                    edited.Complete = true;
+                    await App.MobileService.GetTable<TodoItem>().UpdateAsync(edited);
+                }
+            }
+
+
+            ReLoadItems();
+        }
     }
+
 }
