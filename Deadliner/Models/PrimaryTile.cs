@@ -8,7 +8,7 @@ namespace Deadliner.Models
 {
     public class PrimaryTile
     {
-        private const string _message = "Here might be some clever phrase";
+        /*private const string _message = "Here might be some clever phrase";
         private const string _time = "I Love Tolstoy";
 
         static PrimaryTile()
@@ -18,6 +18,11 @@ namespace Deadliner.Models
         }
 
         public static string time { get; set; }
-        public static string message { get; set; }
+        public static string message { get; set; }*/
+
+        public static string IdealTime = "I Love Tolstoy";
+        public static string IdealMessage = "Here might be some clever phrase";
+        public string time { get; set; } = IdealTime;
+        public string message { get; set; } = IdealMessage;
     }
 }

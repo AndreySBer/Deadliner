@@ -6,6 +6,7 @@ using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
+using Windows.UI.Popups;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
@@ -35,15 +36,22 @@ namespace Deadliner
             base.OnNavigatedTo(e);
         }
 
-        private void SaveNew(object sender, RoutedEventArgs e)
+        private async void SaveNew(object sender, RoutedEventArgs e)
         {
             //TodoItem item = new TodoItem
-            
+            if (DatePicker.Date != null)
+            {
                 item.Title = TitleTextBox.Text;
                 item.Complete = false;
                 item.Text = TextTextBox.Text;
                 item.DueTo = ((DateTimeOffset)DatePicker.Date).Date.Add(TimePicker.Time);
-            Frame.Navigate(typeof(MainPage), item);
+                Frame.Navigate(typeof(MainPage), item);
+            }
+            else
+            {
+                await new MessageDialog("Выберите день").ShowAsync();
+            }
+            
             
         }
     }
