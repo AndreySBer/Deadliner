@@ -43,7 +43,7 @@
                         <TextBlock FontWeight="Bold" Foreground="Red" FontSize="18" Text="{Binding Title}"></TextBlock>
                         <TextBlock FontSize="12" Text="{Binding Text}"></TextBlock>
                         <TextBlock FontSize="12" Text="{Binding DueTo}"></TextBlock>
-                        <CheckBox IsChecked="{Binding Complete, Mode=TwoWay}" Click="clickCheckBox" HorizontalAlignment="Right"/>
+                        <CheckBox IsChecked="{Binding Complete, Mode=TwoWay}" Click="clickCheckBox"/>
                     </StackPanel>
                 </DataTemplate>
             </ListView.ItemTemplate>

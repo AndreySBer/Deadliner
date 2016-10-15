@@ -26,13 +26,17 @@
                 </VisualState>
             </VisualStateGroup>
         </VisualStateManager.VisualStateGroups>
-        <RelativePanel>
+        <RelativePanel Background="Orange">
             <TextBlock x:Name="HeaderTextBlock" Margin="4,0,4,4">New Deadline</TextBlock>
-            <TextBox x:Name="TitleTextBox" Header="Title" Margin="4,0,4,4"/>
-            <TextBox x:Name="TextTextBox" Header="Description" Margin="4,0,4,4"/>
+            <TextBox x:Name="TitleTextBox" Header="Title" Margin="4,0,-241,4"/>
+            <TextBox x:Name="TextTextBox" Header="Description" Margin="4,0,-637,33"/>
             <StackPanel x:Name="DateTimePicker">
-                <CalendarDatePicker x:Name="DatePicker" Header="Do before" Margin="4,0,4,4"/>
-                <TimePicker x:Name="TimePicker" Margin="4,0,4,4"/>
+                <CalendarDatePicker x:Name="DatePicker" Header="Do before" Margin="4,0,0,4" HorizontalAlignment="Left" Width="194"/>
+                <TimePicker x:Name="TimePicker" Margin="4.003,0,-68.997,4" RenderTransformOrigin="0.5,0.5" UseLayoutRounding="False" d:LayoutRounding="Auto" Height="43.987" Width="310.994">
+                    <TimePicker.RenderTransform>
+                        <CompositeTransform Rotation="0.03"/>
+                    </TimePicker.RenderTransform>
+                </TimePicker>
             </StackPanel>
             <Button x:Name="NewTaskButton" Click="SaveNew" Margin="4,0,4,4">Добавить</Button>
         </RelativePanel>

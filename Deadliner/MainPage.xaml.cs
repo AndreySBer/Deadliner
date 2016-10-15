@@ -61,8 +61,6 @@ namespace Deadliner
 
         private void ShowData()
         {
-            //DeadList.Add(new Deadline("В Питере - пить") { Name = "В Питере - пить" });
-            //DeadList.Add(new Deadline("ЗОЖ") { Name = "ЗОЖ" });
             LoadDeads();
             dataTable.ItemsSource = DeadList;
         }
@@ -90,16 +88,6 @@ namespace Deadliner
             }
         }
 
-        /*private void ChangeEvent(object sender, RoutedEventArgs e)
-        {
-            
-            string temp = DateTime.Now.ToString();
-            DeadList.Add(new TodoItem());
-            dataTable.Items.Add(temp);
-            _count++;
-            PrimaryTile.message = (Enum.GetName(typeof(Second), ((int)(DateTime.Now.Second)) % 2).ToString());
-            TileService.UpdatePrimaryTile(this, null);
-        }*/
         enum Second
         {
             Odd, Even
@@ -174,7 +162,7 @@ namespace Deadliner
                 TodoItem edited = null;
                 foreach (var item in DeadList)
                 {
-                    if (item.Title == ((TextBlock)arr[0]).Text)
+                    if (item.Title == ((TextBlock)arr[0]).Text || item.Text == ((TextBlock)arr[1]).Text)
                     {
                         edited = item;
                         break;
