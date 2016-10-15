@@ -14,11 +14,8 @@
                         <AdaptiveTrigger MinWindowWidth="320"/>
                     </VisualState.StateTriggers>
                     <VisualState.Setters>
-
-
-                        <Setter Target="TempButNew.(RelativePanel.RightOf)" Value="ButtonSave"/>
+                        <Setter Target="ButtonSave.(RelativePanel.RightOf)" Value="AzureButNew"/>
                         <Setter Target="AzureButNew.(RelativePanel.RightOf)" Value="TempButNew"/>
-                        
                     </VisualState.Setters>
                 </VisualState>
             </VisualStateGroup>
@@ -30,10 +27,10 @@
         </Grid.RowDefinitions>
         <RelativePanel Grid.Row="0" Background="Orange">
 
-            <Button x:Name="ButtonSave" Click="SaveEvents" Margin="4,4,0,4" VerticalAlignment="Top" Background="#f5770a" Width="150" >Save Tasks To File</Button>
+            <Button x:Name="ButtonSave" Click="SaveEvents" Margin="4,4,0,4" VerticalAlignment="Top" Background="#f5770a" Width="Auto" >Сохранить задачи в файл</Button>
 
-            <Button x:Name="TempButNew" Click="NewEvent"  Margin="4,4,0,4" VerticalAlignment="Top" Background="#f5770a" Width="100">New Task</Button>
-            <Button x:Name="AzureButNew" Click="AzureEvent"  Margin="4,4,0,4" VerticalAlignment="Top" Background="#f5770a" Width="100">Azure</Button>
+            <Button x:Name="TempButNew" Click="NewEvent"  Margin="4,4,0,4" VerticalAlignment="Top" Background="#f5770a" Width="Auto">Новая задача +</Button>
+            <Button x:Name="AzureButNew" Click="AzureEvent"  Margin="4,4,0,4" VerticalAlignment="Top" Background="#f5770a" Width="Auto">Обновить</Button>
         </RelativePanel>
         <ListView x:Name="dataTable"  Grid.Row="1" Background="#ffb300">
             <ListView.ItemTemplate>
