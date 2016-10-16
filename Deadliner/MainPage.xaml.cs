@@ -157,8 +157,8 @@ namespace Deadliner
             }
             else
             {
-                PrimaryTile.IdealTime = "You have no current tasks";
-                PrimaryTile.IdealMessage = "Why don\'t you run city quests from Quest-City.ru";
+                PrimaryTile.IdealTime = "У вас нет текущих задач.";
+                PrimaryTile.IdealMessage = "Почему бы тебе не попробовать городской квест Quest-City.ru ?";
             }
 
             TileService.UpdatePrimaryTile(this, null);
